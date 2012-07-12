@@ -26,6 +26,9 @@ ZSH_THEME="thi"
 # Uncomment following line if you want red dots to be displayed while waiting for completion
 # COMPLETION_WAITING_DOTS="true"
 
+WORKON_HOME=$HOME/.virtualenvs
+VIRTUALENVWRAPPER_PYTHON=$(which python2.7)
+
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
@@ -40,10 +43,15 @@ unsetopt correctall
 
 # show cpu usage stats for programs running for more than 10 seconds
 REPORTTIME=10
+EDITOR=vim
 
 # add potential dirs to path array
 path+=/opt/local/bin
 path+=~/bin
 # then filter out those that exist
 path=($^path(N))
+
+# set keyboard repeat rate and delay if X is running
+pgrep -f /usr/bin/X > /dev/null && xset r rate 180 40
+
 
