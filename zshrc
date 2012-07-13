@@ -35,6 +35,8 @@ source $ZSH/oh-my-zsh.sh
 
 # prevent reloading of the history in each shell
 unsetopt share_history
+# disable spelling correction
+unsetopt correctall
 
 # show cpu usage stats for programs running for more than 10 seconds
 REPORTTIME=10
