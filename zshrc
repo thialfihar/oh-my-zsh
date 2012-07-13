@@ -27,7 +27,7 @@ ZSH_THEME="thi"
 # COMPLETION_WAITING_DOTS="true"
 
 WORKON_HOME=$HOME/.virtualenvs
-VIRTUALENVWRAPPER_PYTHON=$(which python2.7)
+VIRTUALENVWRAPPER_PYTHON=$(which python)
 
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
