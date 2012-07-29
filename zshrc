@@ -45,7 +45,11 @@ unsetopt correctall
 REPORTTIME=10
 EDITOR=vim
 
+# automatically remove duplicates from these arrays
+typeset -U path cdpath fpath manpath
+
 # add potential dirs to path array
+path=(/usr/local/bin $path)
 path+=/opt/local/bin
 path+=~/bin
 # then filter out those that exist
