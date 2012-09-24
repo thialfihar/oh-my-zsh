@@ -58,6 +58,10 @@ path=($^path(N))
 # set keyboard repeat rate and delay if X is running
 pgrep -f /usr/bin/X > /dev/null && xset r rate 180 40
 
+[ -f ~/.dircolors ] && eval $(dircolors -b ~/.dircolors)
+export ZLSCOLORS="${LS_COLORS}"
+# make sure zsh's completion uses the same colours
+zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
 
 alias -g ...='../..'
 alias -g ....='../../..'
