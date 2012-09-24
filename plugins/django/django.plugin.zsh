@@ -81,7 +81,7 @@ _managepy-reset(){
 
 _managepy-runfcgi(){
   local state
-  
+
   local fcgi_opts
   fcgi_opts=(
     'protocol[fcgi, scgi, ajp, ... (default fcgi)]:protocol:(fcgi scgi ajp)'
@@ -99,7 +99,7 @@ _managepy-runfcgi(){
     'outlog[write stdout to this file.]:file:_files'
     'errlog[write stderr to this file.]:file:_files'
   )
-  
+
   _arguments -s : \
     $nul_args \
     '*: :_values "FCGI Setting" $fcgi_opts' && ret=0
@@ -159,37 +159,14 @@ _managepy-validate() {
 
 _managepy-commands() {
   local -a commands
-  
-  commands=(
-    'adminindex:prints the admin-index template snippet for the given app name(s).'
-    'createcachetable:creates the table needed to use the SQL cache backend.'
-    'dbshell:runs the command-line client for the current DATABASE_ENGINE.'
-    "diffsettings:displays differences between the current settings.py and Django's default settings."
-    'dumpdata:Output the contents of the database as a fixture of the given format.'
-    'flush:Executes ``sqlflush`` on the current database.'
-    'help:manage.py help.'
-    'inspectdb:Introspects the database tables in the given database and outputs a Django model module.'
-    'loaddata:Installs the named fixture(s) in the database.'
-    'reset:Executes ``sqlreset`` for the given app(s) in the current database.'
-    'runfcgi:Run this project as a fastcgi (or some other protocol supported by flup) application,'
-    'runserver:Starts a lightweight Web server for development.'
-    'shell:Runs a Python interactive interpreter.'
-    'sql:Prints the CREATE TABLE SQL statements for the given app name(s).'
-    'sqlall:Prints the CREATE TABLE, custom SQL and CREATE INDEX SQL statements for the given model module name(s).'
-    'sqlclear:Prints the DROP TABLE SQL statements for the given app name(s).'
-    'sqlcustom:Prints the custom table modifying SQL statements for the given app name(s).'
-    'sqlflush:Returns a list of the SQL statements required to return all tables in the database to the state they were in just after they were installed.'
-    'sqlindexes:Prints the CREATE INDEX SQL statements for the given model module name(s).'
-    "sqlinitialdata:RENAMED: see 'sqlcustom'"
-    'sqlreset:Prints the DROP TABLE SQL, then the CREATE TABLE SQL, for the given app name(s).'
-    'sqlsequencereset:Prints the SQL statements for resetting sequences for the given app name(s).'
-    "startapp:Creates a Django app directory structure for the given app name in this project's directory."
-    "syncdb:Create the database tables for all apps in INSTALLED_APPS whose tables haven't already been created."
-    'test:Runs the test suite for the specified applications, or the entire site if no apps are specified.'
-    'testserver:Runs a development server with data from the given fixture(s).'
-    'validate:Validates all installed models.'
-  )
-  
+
+  commands=()
+  for cmd in $(python ./manage.py --help 2>&1 >/dev/null | \
+      awk -vdrop=1 '{ if (!drop) print substr($0, 3) } /^Available subcommands/ { drop=0 }')
+  do
+      commands+=($cmd)
+  done
+
   _describe -t commands 'manage.py command' commands && ret=0
 }
 
@@ -207,7 +184,7 @@ _applist() {
 
 _managepy() {
   local curcontext=$curcontext ret=1
-  
+
   if ((CURRENT == 2)); then
     _managepy-commands
   else
