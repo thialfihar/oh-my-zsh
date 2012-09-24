@@ -1,8 +1,12 @@
 # Aliases
 alias g='git'
 compdef g=git
-alias gst='git status'
-compdef _git gst=git-status
+alias s='git status -s'
+compdef _git s=git-status
+alias gd='git diff'
+compdef _git gd=git-diff
+alias gg='git grep'
+compdef _git gg=git-grep
 alias gl='git pull'
 compdef _git gl=git-pull
 alias gup='git pull --rebase'
@@ -10,6 +14,9 @@ compdef _git gup=git-fetch
 alias gp='git push'
 compdef _git gp=git-push
 alias gd='git diff'
+compdef _git gd=git-diff
+alias gpm='git push --mirror'
+compdef _git gpm=git-push
 gdv() { git diff -w "$@" | view - }
 compdef _git gdv=git-diff
 alias gc='git commit -v'
@@ -40,9 +47,9 @@ compdef gcount=git
 alias gcl='git config --list'
 alias gcp='git cherry-pick'
 compdef _git gcp=git-cherry-pick
-alias glg='git log --stat --max-count=5'
+alias glg='git log --stat'
 compdef _git glg=git-log
-alias glgg='git log --graph --max-count=5'
+alias glgg='git log --graph'
 compdef _git glgg=git-log
 alias glgga='git log --graph --decorate --all'
 compdef _git glgga=git-log
@@ -62,6 +69,23 @@ alias gpoat='git push origin --all && git push origin --tags'
 # or submodule.
 alias grt='cd $(git rev-parse --show-toplevel || echo ".")'
 
+alias gr='git rebase'
+compdef _git gr=git-rebase
+alias gri='git rebase -i'
+compdef _git gri=git-rebase
+alias grm='git rebase master'
+compdef _git grm=git-rebase
+alias grim='git rebase -i master'
+compdef _git grim=git-rebase
+
+alias grc='git rebase --continue'
+compdef _git grc=git-rebase
+alias grs='git rebase --skip'
+compdef _git grs=git-rebase
+alias gra='git rebase --abort'
+compdef _git gra=git-rebase
+
+#
 # Git and svn mix
 alias git-svn-dcommit-push='git svn dcommit && git push github master:svntrunk'
 compdef git-svn-dcommit-push=git
