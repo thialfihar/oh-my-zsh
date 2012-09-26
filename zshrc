@@ -104,3 +104,9 @@ alias -g X0='| xargs -0'
 alias -g XG='| xargs egrep'
 alias -g X='| xargs'
 alias gvim='UBUNTU_MENUPROXY= gvim'
+# old gu
+alias guo='killall wish 2> /dev/null; gitk &; git gui &'
+# new gu
+alias gun='killall gitg git-cola wish 2> /dev/null; gitg &; git cola &'
+# gu using cola and gitk til other issues are fixed
+alias gu='killall gitg git-cola wish 2> /dev/null; gitk &; git cola &'
