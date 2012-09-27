@@ -32,7 +32,11 @@ VIRTUALENVWRAPPER_PYTHON=$(which python)
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(command-not-found git git-flow django gnu-utils macports pip python virtualenvwrapper vi-mode zsh-syntax-highlighting)
+plugins=(git git-flow django gnu-utils macports pip python virtualenvwrapper vi-mode zsh-syntax-highlighting)
+
+if [[ $(uname) == 'Linux' ]]; then
+    plugins+=command-not-found
+fi
 
 source $ZSH/oh-my-zsh.sh
 
@@ -48,15 +52,19 @@ EDITOR=vim
 # automatically remove duplicates from these arrays
 typeset -U path cdpath fpath manpath
 
+if [[ $(uname) == 'Linux' ]]; then
+    # set keyboard repeat rate and delay if X is running
+    pgrep -f /usr/bin/X > /dev/null && xset r rate 180 40
+else
+    path=(/usr/local/bin $path)
+    path+=$(brew --prefix coreutils)/libexec/gnubin
+fi
+#
 # add potential dirs to path array
-path=(/usr/local/bin $path)
 path+=/usr/local/share/python
 path+=~/bin
 # then filter out those that exist
 path=($^path(N))
-
-# set keyboard repeat rate and delay if X is running
-pgrep -f /usr/bin/X > /dev/null && xset r rate 180 40
 
 [ -f ~/.dircolors ] && eval $(dircolors -b ~/.dircolors)
 export ZLSCOLORS="${LS_COLORS}"
