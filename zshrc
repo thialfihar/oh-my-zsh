@@ -118,3 +118,4 @@ alias guo='killall wish 2> /dev/null; gitk &; git gui &'
 alias gun='killall gitg git-cola wish 2> /dev/null; gitg &; git cola &'
 # gu using cola and gitk til other issues are fixed
 alias gu='killall gitg git-cola wish 2> /dev/null; gitk &; git cola &'
+alias cm='start_cmus_in_tmux.sh'
