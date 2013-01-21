@@ -28,6 +28,7 @@ DISABLE_AUTO_UPDATE="true"
 
 WORKON_HOME=$HOME/.virtualenvs
 VIRTUALENVWRAPPER_PYTHON=$(which python)
+ANDROID_HOME=/home/thi/android-sdk
 
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
@@ -40,6 +41,8 @@ fi
 
 source $ZSH/oh-my-zsh.sh
 
+HISTSIZE=100000
+SAVEIST=$HISTSIZE
 # prevent reloading of the history in each shell
 unsetopt share_history
 # disable spelling correction
@@ -55,6 +58,7 @@ typeset -U path cdpath fpath manpath
 if [[ $(uname) == 'Linux' ]]; then
     # set keyboard repeat rate and delay if X is running
     pgrep -f /usr/bin/X > /dev/null && xset r rate 180 40
+    path+=~/.cabal/bin
 else
     path=(/usr/local/bin $path)
     path+=$(brew --prefix coreutils)/libexec/gnubin
@@ -63,6 +67,7 @@ fi
 # add potential dirs to path array
 path+=/usr/local/share/python
 path+=~/bin
+path+=~/android-sdk/tools
 # then filter out those that exist
 path=($^path(N))
 
@@ -77,6 +82,7 @@ alias -g .....='../../../..'
 alias -g A="| ack"
 alias -g CA="2>&1 | cat -A"
 alias -g C='| wc -l'
+alias -g CU='| cut -f'
 alias -g D="DISPLAY=:0.0"
 alias -g DN=/dev/null
 alias -g ED="export DISPLAY=:0.0"
@@ -106,6 +112,7 @@ alias -g S='| sort'
 alias -g TL='| tail -20'
 alias -g T='| tail'
 alias -g US='| sort -u'
+alias -g U='| uniq'
 alias -g VM=/var/log/messages
 alias -g X0G='| xargs -0 egrep'
 alias -g X0='| xargs -0'
@@ -119,3 +126,11 @@ alias gun='killall gitg git-cola wish 2> /dev/null; gitg &; git cola &'
 # gu using cola and gitk til other issues are fixed
 alias gu='killall gitg git-cola wish 2> /dev/null; gitk &; git cola &'
 alias cm='start_cmus_in_tmux.sh'
+alias vd="vimdiff"
+
+if [[ $(uname) == 'Linux' ]]; then
+    alias open='gnome-open'
+fi
+
+autoload -U zmv
+alias mmv='noglob zmv -W'
