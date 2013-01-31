@@ -28,7 +28,8 @@ DISABLE_AUTO_UPDATE="true"
 
 WORKON_HOME=$HOME/.virtualenvs
 VIRTUALENVWRAPPER_PYTHON=$(which python)
-ANDROID_HOME=/home/thi/android-sdk
+export ANDROID_HOME=/home/thi/android-sdk
+export ANDROID_SDK=$ANDROID_HOME
 
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
