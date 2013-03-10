@@ -28,8 +28,12 @@ DISABLE_AUTO_UPDATE="true"
 
 WORKON_HOME=$HOME/.virtualenvs
 VIRTUALENVWRAPPER_PYTHON=$(which python)
-export ANDROID_HOME=/home/thi/android-sdk
+export CLASSPATH=/home/thi/stanford-postagger/
+export ANDROID_HOME=~/sdk/android-sdk
 export ANDROID_SDK=$ANDROID_HOME
+export ANDROID_NDK_ROOT=~/sdk/android-ndk
+export NDK_ROOT=$ANDROID_NDK_ROOT
+export COCOS2DX_ROOT=~/sdk/cocos2d-x
 
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
@@ -66,9 +70,16 @@ else
 fi
 #
 # add potential dirs to path array
-path+=/usr/local/share/python
-path+=~/bin
-path+=~/android-sdk/tools
+path2=(~/bin)
+for (( i = 1; i <= $#path; i++ )) do
+    path2+=$path[i]
+done
+path2+=/usr/local/share/python
+path2+=$ANDROID_SDK/tools
+path2+=$ANDROID_SDK/platform-tools
+path2+=$ANDROID_SDK/platform-tools
+path2+=$ANDROID_NDK_ROOT
+path=($path2)
 # then filter out those that exist
 path=($^path(N))
 
@@ -77,6 +88,7 @@ export ZLSCOLORS="${LS_COLORS}"
 # make sure zsh's completion uses the same colours
 zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
 
+alias ack='ack-grep'
 alias -g ...='../..'
 alias -g ....='../../..'
 alias -g .....='../../../..'
