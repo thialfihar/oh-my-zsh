@@ -52,6 +52,8 @@ SAVEIST=$HISTSIZE
 unsetopt share_history
 # disable spelling correction
 unsetopt correctall
+# if a wildcard argument doesn't match, keep it as a plaintext string
+unsetopt nomatch
 
 # show cpu usage stats for programs running for more than 10 seconds
 REPORTTIME=10
