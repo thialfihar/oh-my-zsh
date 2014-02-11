@@ -9,4 +9,3 @@ PROMPT='%{%f%k%b%}
 RPROMPT=''
 
 MODE_INDICATOR="%{$fg_bold[red]%}<<<%{$reset_color%}"
-RPS1='$(vi_mode_prompt_info)'

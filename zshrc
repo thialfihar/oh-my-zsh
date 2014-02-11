@@ -38,7 +38,7 @@ export COCOS2DX_ROOT=~/sdk/cocos2d-x
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git git-flow django gnu-utils macports pip python virtualenvwrapper vi-mode zsh-syntax-highlighting)
+plugins=(git git-flow django gnu-utils macports pip python virtualenvwrapper zsh-syntax-highlighting)
 
 if [[ $(uname) == 'Linux' ]]; then
     plugins+=command-not-found
