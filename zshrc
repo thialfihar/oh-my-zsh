@@ -32,8 +32,10 @@ export CLASSPATH=/home/thi/stanford-postagger/
 export ANDROID_HOME=~/sdk/android-sdk
 export ANDROID_SDK=$ANDROID_HOME
 export ANDROID_NDK_ROOT=~/sdk/android-ndk
+export ANDROID_NDK=$ANDROID_NDK_ROOT
 export NDK_ROOT=$ANDROID_NDK_ROOT
 export COCOS2DX_ROOT=~/sdk/cocos2d-x
+export MINKO_HOME=/home/thi/sdk/minko
 
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
