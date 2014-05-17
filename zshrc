@@ -153,5 +153,3 @@ alias mmv='noglob zmv -W'
 synclient ClickPad=0
 synclient ClickFinger2=3
 synclient ClickFinger3=2
-synclient RightButtonAreaTop=0
-synclient RightButtonAreaLeft=0
