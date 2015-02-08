@@ -156,3 +156,9 @@ alias mmv='noglob zmv -W'
 synclient ClickPad=0
 synclient ClickFinger2=3
 synclient ClickFinger3=2
+
+_fab_list() {
+    reply=(`fab --shortlist`)
+}
+compctl -K _fab_list fab
+
