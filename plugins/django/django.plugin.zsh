@@ -330,8 +330,7 @@ _managepy-commands() {
   local -a commands
 
   commands=()
-  for cmd in $(python ./manage.py --help 2>&1 >/dev/null | \
-      awk -vdrop=1 '{ if (!drop) print substr($0, 3) } /^Available subcommands/ { drop=0 }')
+  for cmd in $(python ./manage.py --help 2>&1 | egrep '^[ ]{4}[^ ]')
   do
       commands+=($cmd)
   done
