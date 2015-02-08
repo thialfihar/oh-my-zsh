@@ -40,7 +40,7 @@ export MINKO_HOME=/home/thi/sdk/minko
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git git-flow django gnu-utils macports pip python virtualenvwrapper zsh-syntax-highlighting)
+plugins=(git git-flow django gnu-utils pip python virtualenvwrapper zsh-syntax-highlighting)
 
 if [[ $(uname) == 'Linux' ]]; then
     plugins+=command-not-found
