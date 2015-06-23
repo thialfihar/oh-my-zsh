@@ -29,18 +29,20 @@ DISABLE_AUTO_UPDATE="true"
 WORKON_HOME=$HOME/.virtualenvs
 VIRTUALENVWRAPPER_PYTHON=$(which python)
 export CLASSPATH=/home/thi/stanford-postagger/
-export ANDROID_HOME=~/sdk/android-sdk
-export ANDROID_SDK=$ANDROID_HOME
-export ANDROID_NDK_ROOT=~/sdk/android-ndk
-export ANDROID_NDK=$ANDROID_NDK_ROOT
+# Add environment variable COCOS_CONSOLE_ROOT for cocos2d-x
+export COCOS_CONSOLE_ROOT=/home/thi/sdk/cocos2d-x/tools/cocos2d-console/bin
+# Add environment variable ANDROID_SDK_ROOT for cocos2d-x
+export ANDROID_SDK_ROOT=/home/thi/sdk/android-sdk
+export ANDROID_HOME=$ANDROID_SDK_ROOT
+# Add environment variable ANT_ROOT for cocos2d-x
+export ANT_ROOT=/usr/bin
+export ANDROID_NDK_ROOT=/home/thi/sdk/android-ndk
 export NDK_ROOT=$ANDROID_NDK_ROOT
-export COCOS2DX_ROOT=~/sdk/cocos2d-x
-export MINKO_HOME=/home/thi/sdk/minko
 
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git git-flow django gnu-utils pip python virtualenvwrapper zsh-syntax-highlighting)
+plugins=(autojump git git-flow django gnu-utils pip python virtualenvwrapper zsh-syntax-highlighting)
 
 if [[ $(uname) == 'Linux' ]]; then
     plugins+=command-not-found
@@ -67,22 +69,21 @@ typeset -U path cdpath fpath manpath
 if [[ $(uname) == 'Linux' ]]; then
     # set keyboard repeat rate and delay if X is running
     pgrep -f /usr/bin/X > /dev/null && xset r rate 180 40
-    path+=~/.cabal/bin
 else
     path=(/usr/local/bin $path)
     path+=$(brew --prefix coreutils)/libexec/gnubin
 fi
 #
 # add potential dirs to path array
-path2=(~/bin)
+path2=(~/bin /usr/local/bin)
 for (( i = 1; i <= $#path; i++ )) do
     path2+=$path[i]
 done
 path2+=/usr/local/share/python
-path2+=$ANDROID_SDK/tools
-path2+=$ANDROID_SDK/platform-tools
-path2+=$ANDROID_SDK/platform-tools
+path2+=$ANDROID_SDK_ROOT/tools
+path2+=$ANDROID_SDK_ROOT/platform-tools
 path2+=$ANDROID_NDK_ROOT
+path2+=$COCOS_CONSOLE_ROOT
 path=($path2)
 # then filter out those that exist
 path=($^path(N))
@@ -99,6 +100,7 @@ alias -g .....='../../../..'
 alias -g A="| ack"
 alias -g CA="2>&1 | cat -A"
 alias -g C='| wc -l'
+alias -g COL='| sed "s/^/_ /" | rev | column -t | rev | sed "s/^_  //"'
 alias -g CU='| cut -f'
 alias -g D="DISPLAY=:0.0"
 alias -g DN=/dev/null
@@ -146,6 +148,9 @@ alias gu='killall gitg git-cola wish 2> /dev/null; git cola &'
 alias cm='start_cmus_in_tmux.sh'
 alias vd="vimdiff"
 
+alias ipy="ipython3"
+alias pip="pip3"
+
 if [[ $(uname) == 'Linux' ]]; then
     alias open='gnome-open'
 fi
@@ -153,12 +158,19 @@ fi
 autoload -U zmv
 alias mmv='noglob zmv -W'
 
-synclient ClickPad=0
-synclient ClickFinger2=3
-synclient ClickFinger3=2
+if which synclient >/dev/null; then
+  synclient ClickPad=0
+  synclient ClickFinger2=3
+  synclient ClickFinger3=2
+  synclient TapButton1=0
+  synclient TapButton2=0
+  synclient TapButton3=0
+  synclient AreaRightEdge=0
+fi
 
 _fab_list() {
     reply=(`fab --shortlist`)
 }
 compctl -K _fab_list fab
 
+export PIP_DOWNLOAD_CACHE=$HOME/.pip_download_cache
