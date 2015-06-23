@@ -62,6 +62,7 @@ pgrep -f /usr/bin/X > /dev/null && xset r rate 180 40
 alias -g ...='../..'
 alias -g ....='../../..'
 alias -g .....='../../../..'
+alias -g A="| ack"
 alias -g CA="2>&1 | cat -A"
 alias -g C='| wc -l'
 alias -g D="DISPLAY=:0.0"
