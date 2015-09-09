@@ -68,7 +68,7 @@ typeset -U path cdpath fpath manpath
 
 if [[ $(uname) == 'Linux' ]]; then
     # set keyboard repeat rate and delay if X is running
-    pgrep -f /usr/bin/X > /dev/null && xset r rate 180 40
+    pgrep -f 'X' > /dev/null && xset r rate 180 40
 else
     path=(/usr/local/bin $path)
     path+=$(brew --prefix coreutils)/libexec/gnubin
@@ -80,6 +80,7 @@ for (( i = 1; i <= $#path; i++ )) do
     path2+=$path[i]
 done
 path2+=/usr/local/share/python
+path2+=/opt/sublime_text_3
 path2+=$ANDROID_SDK_ROOT/tools
 path2+=$ANDROID_SDK_ROOT/platform-tools
 path2+=$ANDROID_NDK_ROOT
@@ -159,7 +160,8 @@ autoload -U zmv
 alias mmv='noglob zmv -W'
 
 if which synclient >/dev/null; then
-  synclient ClickPad=0
+  # on the Samsung this should be ClickPad=0
+  synclient ClickPad=1
   synclient ClickFinger2=3
   synclient ClickFinger3=2
   synclient TapButton1=0
