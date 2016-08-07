@@ -1,0 +1,70 @@
+SSH_ENV="$HOME/.ssh/environment"
+GPG_ENV="$HOME/.gpg.env"
+
+function start_agent {
+    echo "Initialising new SSH agent..."
+    /usr/bin/ssh-agent | sed 's/^echo/#echo/' > "${SSH_ENV}"
+    echo succeeded
+    chmod 600 "${SSH_ENV}"
+    . "${SSH_ENV}" > /dev/null
+    /usr/bin/ssh-add -K;
+}
+
+# Source SSH settings, if applicable
+
+if [ -f "${SSH_ENV}" ]; then
+    . "${SSH_ENV}" > /dev/null
+    #ps ${SSH_AGENT_PID} doesn't work under cywgin
+    ps -ef | grep ${SSH_AGENT_PID} | grep ssh-agent$ > /dev/null || {
+        start_agent;
+    }
+else
+    start_agent;
+fi
+
+# gpg
+function start_agent_gpg {
+    echo "Initialising new GPG agent..."
+    /usr/local/bin/gpg-agent --daemon > "$GPG_ENV"
+    . "${GPG_ENV}" > /dev/null
+}
+
+function gpg_agent_is_running {
+    socket=$(echo $GPG_AGENT_INFO | cut -d : -f 1)
+    if [ -z "$socket" ]; then
+        return 255
+    fi
+    # does the socket exist?
+    if [ -S "$socket" ]; then
+        return 0
+    fi
+    return 255
+}
+
+if [ -f "${GPG_ENV}" ]; then
+    . "${GPG_ENV}" > /dev/null
+    gpg_agent_is_running || start_agent_gpg;
+else
+    start_agent_gpg;
+fi
+
+if [[ $(uname) != 'Linux' ]]; then
+    path=(/usr/local/bin $path)
+    path+=$(brew --prefix coreutils)/libexec/gnubin
+fi
+
+path+=(~/bin ~/.local/bin /usr/local/bin)
+path+=/apollo/env/SDETools/bin
+path+=(/opt/local/bin /opt/local/sbin)
+
+PATH="~/perl5/bin${PATH:+:${PATH}}";
+PATH="$PATH:/usr/local/texlive/2016/bin/x86_64-darwin/";
+PATH="~/.rbenv/shims:$PATH"
+PATH=$BRAZIL_CLI_BIN:$PATH
+export PATH;
+PERL5LIB="~/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
+PERL_LOCAL_LIB_ROOT="~/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
+PERL_MB_OPT="--install_base \"~/perl5\""; export PERL_MB_OPT;
+PERL_MM_OPT="INSTALL_BASE=~/perl5"; export PERL_MM_OPT;
+
+#export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
