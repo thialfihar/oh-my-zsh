@@ -26,10 +26,16 @@ fi
 function start_agent_gpg {
     echo "Initialising new GPG agent..."
     /usr/local/bin/gpg-agent --daemon > "$GPG_ENV"
-    . "${GPG_ENV}" > /dev/null
+    #. "${GPG_ENV}" > /dev/null
 }
 
 function gpg_agent_is_running {
+    pid=$(pgrep gpg-agent)
+    if [ -z "$pid" ]; then
+        return 255
+    fi
+    return 0
+
     socket=$(echo $GPG_AGENT_INFO | cut -d : -f 1)
     if [ -z "$socket" ]; then
         return 255
